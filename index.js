@@ -23,21 +23,20 @@ document.getElementById("akanForm").addEventListener("submit", function(e) {
     return;
   }
 
-  const birthDate = new Date(year, month - 1, day); 
-  const dayOfWeek = birthDate.getDay(); 
+    let CC =Math.floor(year/100);
+    let YY = year % 100;
+    let MM = month;
+    let DD = day;
+    let d = Math.floor((( (CC/4) - (2*CC) -1) + ((5*YY)/4) + ((26*(MM+1))/10) + DD) % 7);
+    if (d < 0) d += 7;
 
   const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   const maleNames = ["Kwasi", "Kwadwo", "Kwabena", "Kwaku", "Yaw", "Kofi", "Kwame"];
   const femaleNames = ["Akosua", "Adwoa", "Abenaa", "Akua", "Yaa", "Afua", "Ama"];
+  let akanName = gender === "male" ? maleNames[d] : femaleNames[d];
 
-  let akanName = "";
-  if (gender === "male") {
-    akanName = maleNames[dayOfWeek];
-  } else {
-    akanName = femaleNames[dayOfWeek];
-  }
 
   document.getElementById("result").innerText =
-    `You were born on a ${days[dayOfWeek]} and your Akan name is ${akanName}.`;
+    `You were born on a ${days[d]} and your Akan name is ${akanName}.`;
 });
 
